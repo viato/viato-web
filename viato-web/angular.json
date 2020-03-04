@@ -28,7 +28,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -93,7 +92,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -129,6 +127,6 @@
   },
   "defaultProject": "viato-web",
   "cli": {
-    "analytics": false
+    "analytics": "09520ba3-5a2f-4fef-ae70-88265fd49a65"
   }
 }
