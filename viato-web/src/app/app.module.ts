@@ -14,12 +14,6 @@ import {
   NbInputModule,
   NbSelectModule,
   NbButtonModule,
-  NbMenuModule,
-  NbUserModule,
-  NbActionsModule,
-  NbSearchModule,
-  NbSidebarModule,
-  NbContextMenuModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './components/login/login.component';
@@ -34,21 +28,6 @@ import {
 } from '@nebular/auth';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
-import { CommonModule } from '@angular/common';
-
-const NB_MODULES = [
-  NbLayoutModule,
-  NbMenuModule,
-  NbUserModule,
-  NbActionsModule,
-  NbSearchModule,
-  NbSidebarModule,
-  NbContextMenuModule,
-  NbButtonModule,
-  NbSelectModule,
-  NbIconModule,
-  NbEvaIconsModule,
-];
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
@@ -58,16 +37,14 @@ export const NB_CORE_PROVIDERS = [
         clientId: 'viato-web-ui',
         clientSecret: 'viato-web-ui',
         clientAuthMethod: NbOAuth2ClientAuthMethod.BASIC,
+        baseEndpoint: 'https://localhost:5000',
         token: {
-          endpoint: 'https://localhost:5000/connect/token',
+          endpoint: '/connect/token',
           scope: 'api',
           class: NbAuthOAuth2Token,
           grantType: NbOAuth2GrantType.PASSWORD,
         },
-        authorize: {
-          endpoint: 'https://localhost:5000/connect/token',
-          scope: 'api',
-        },
+
       }),
       NbPasswordAuthStrategy.setup({
         name: 'email',
@@ -97,7 +74,7 @@ export const NB_CORE_PROVIDERS = [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NbThemeModule,
+    NbThemeModule.forRoot(),
     NbLayoutModule,
     NbEvaIconsModule,
     HttpClientModule,
@@ -110,8 +87,6 @@ export const NB_CORE_PROVIDERS = [
     NbInputModule,
     NbSelectModule,
     NbButtonModule,
-    CommonModule,
-    ...NB_MODULES
   ],
   providers: [
     ...NB_CORE_PROVIDERS,
