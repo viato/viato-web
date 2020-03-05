@@ -44,7 +44,6 @@ export const NB_CORE_PROVIDERS = [
           class: NbAuthOAuth2Token,
           grantType: NbOAuth2GrantType.PASSWORD,
         },
-
       }),
       NbPasswordAuthStrategy.setup({
         name: 'email',
@@ -60,6 +59,25 @@ export const NB_CORE_PROVIDERS = [
         },
       }),
     ],
+    forms: {
+      login: {
+        strategy: 'oauth2'
+      },
+      validation: {
+        password: {
+          required: true,
+          pattern: new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$'),
+        },
+        email: {
+          required: true,
+        },
+        fullName: {
+          required: false,
+          minLength: 8,
+          maxLength: 50,
+        },
+      },
+    }
   }).providers,
 ];
 
@@ -68,7 +86,7 @@ export const NB_CORE_PROVIDERS = [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

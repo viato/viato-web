@@ -56,20 +56,16 @@
            id="input-password"
            placeholder="Password"
            fieldSize="large"
+           [pattern]="getConfigValue('forms.validation.password.pattern')"
            [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : 'basic'"
            [required]="getConfigValue('forms.validation.password.required')"
-           [minlength]="getConfigValue('forms.validation.password.minLength')"
-           [maxlength]="getConfigValue('forms.validation.password.maxLength')"
            [attr.aria-invalid]="password.invalid && password.touched ? true : null">
     <ng-container *ngIf="password.invalid && password.touched ">
       <p class="caption status-danger" *ngIf="password.errors?.required">
         Password is required!
       </p>
-      <p class="caption status-danger" *ngIf="password.errors?.minlength || password.errors?.maxlength">
-        Password should contain
-        from {{ getConfigValue('forms.validation.password.minLength') }}
-        to {{ getConfigValue('forms.validation.password.maxLength') }}
-        characters
+      <p class="caption status-danger" *ngIf="password.errors?.pattern">
+        Must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters.
       </p>
     </ng-container>
   </div>
