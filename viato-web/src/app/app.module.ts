@@ -14,6 +14,7 @@ import {
   NbInputModule,
   NbSelectModule,
   NbButtonModule,
+  NbListModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './components/login/login.component';
@@ -28,6 +29,7 @@ import {
 } from '@nebular/auth';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ContributionComponent } from './components/contribution/contribution.component';
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
@@ -68,7 +70,8 @@ export const NB_CORE_PROVIDERS = [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    ContributionComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +90,7 @@ export const NB_CORE_PROVIDERS = [
     NbInputModule,
     NbSelectModule,
     NbButtonModule,
+    NbListModule,
   ],
   providers: [
     ...NB_CORE_PROVIDERS,
