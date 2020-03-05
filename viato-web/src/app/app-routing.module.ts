@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { NbAuthComponent } from '@nebular/auth';
+import { ContributionComponent } from './components/contribution/contribution.component';
 
 
 const routes: Routes = [{
@@ -21,10 +22,11 @@ const routes: Routes = [{
     {
       path: 'register',
       component: RegisterComponent,
-    }
+    },
   ],
 },
-{ path: '', component: HomeComponent, }
+{ path: 'contribution', component: ContributionComponent, },
+{ path: '', component: HomeComponent, },
 ];
 
 @NgModule({
