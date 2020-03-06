@@ -15,6 +15,11 @@ import {
   NbSelectModule,
   NbButtonModule,
   NbListModule,
+  NbUserModule,
+  NbActionsModule,
+  NbContextMenuModule,
+  NbSearchModule,
+  NbMenuModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './components/login/login.component';
@@ -32,6 +37,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { ContributionComponent } from './components/contribution/contribution.component';
 import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { NbSecurityModule } from '@nebular/security';
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
@@ -93,7 +100,8 @@ export const NB_CORE_PROVIDERS = [
     RegisterComponent,
     ContributionComponent,
     AuthWrapperComponent,
-    LayoutComponent
+    LayoutComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -113,6 +121,12 @@ export const NB_CORE_PROVIDERS = [
     NbSelectModule,
     NbButtonModule,
     NbListModule,
+    NbUserModule,
+    NbActionsModule,
+    NbContextMenuModule,
+    NbMenuModule.forRoot(),
+    NbSearchModule,
+    NbSecurityModule.forRoot(),
   ],
   providers: [
     ...NB_CORE_PROVIDERS,

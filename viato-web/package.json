@@ -23,6 +23,7 @@
     "@nebular/auth": "^4.6.0",
     "@nebular/bootstrap": "^4.6.0",
     "@nebular/eva-icons": "4.6.0",
+    "@nebular/security": "^4.6.0",
     "@nebular/theme": "^4.6.0",
     "bootstrap": "^4.4.1",
     "eva-icons": "^1.1.2",
