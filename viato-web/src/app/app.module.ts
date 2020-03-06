@@ -30,6 +30,8 @@ import {
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ContributionComponent } from './components/contribution/contribution.component';
+import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
@@ -89,7 +91,9 @@ export const NB_CORE_PROVIDERS = [
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    ContributionComponent
+    ContributionComponent,
+    AuthWrapperComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

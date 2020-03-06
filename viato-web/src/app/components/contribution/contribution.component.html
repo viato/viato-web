@@ -1,3 +1,25 @@
-<nb-list nbInfiniteList [threshold]="500">
-  <nb-list-item *ngFor="let contribution of contributions">{{contribution.id}} and {{contribution.amount}}</nb-list-item>
-</nb-list>
+<div class="row show-grid">
+  <div *ngFor="let contribution of contributions" class="col-md-3">
+    <nb-card size="small">
+      <div
+        class="picture"
+        [style.background-image]="'url(assets/perrygrone.jpg)'"
+      ></div>
+      <div class="details">
+        <div class="h5">3Dzook TO Armath</div>
+        <div class="subtitle"><strong>1500 AMD</strong></div>
+      </div>
+      <nb-card-footer>
+        <a href="" target="_blank">
+          <nb-icon icon="globe" pack="eva"></nb-icon>
+        </a>
+        <a href="" target="_blank">
+          <nb-icon icon="facebook" pack="eva"></nb-icon>
+        </a>
+        <a href="" target="_blank">
+          <nb-icon icon="github" pack="eva"></nb-icon>
+        </a>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>
