@@ -13,4 +13,5 @@ install:
 
 build_script:
   - cd viato-web
+  - npm insall
   - ng build --prod
