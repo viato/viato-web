@@ -12,5 +12,5 @@ install:
   - npm install
 
 build_script:
-  -cd viato-web
-  -ng-build --prod
+  - cd viato-web
+  - ng-build --prod
