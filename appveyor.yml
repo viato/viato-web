@@ -8,8 +8,6 @@ init:
 install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
-  - npm install -g @angular/cli
-  # install modules
 
 cache:
 - viato-web\node_modules
