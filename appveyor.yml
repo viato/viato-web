@@ -25,6 +25,6 @@ artifacts:
 deploy:
 - provider: AzureAppServiceZipDeploy
   website: viato-web-beta
-  username: viato-web-beta\$viato-web-beta
+  username: $viato-web-beta
   password:
     secure: 1JJXfq9JuiVgQpue6JXDNVEelktxiPiRRq1RSiHy+mYMOvwBUCPZWXkMT23wT4cW29Pxw5p8BFCUm4DXj9kztg==
