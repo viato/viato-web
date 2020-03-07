@@ -28,3 +28,5 @@ deploy:
   username: $viato-web-beta
   password:
     secure: 1JJXfq9JuiVgQpue6JXDNVEelktxiPiRRq1RSiHy+mYMOvwBUCPZWXkMT23wT4cW29Pxw5p8BFCUm4DXj9kztg==
+  on:
+    branch: master
