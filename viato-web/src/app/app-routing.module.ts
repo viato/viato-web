@@ -8,6 +8,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { NbAuthComponent } from '@nebular/auth';
 import { ContributionComponent } from './components/contribution/contribution.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 const routes: Routes = [
@@ -17,6 +19,7 @@ const routes: Routes = [
     children: [
       { path: 'contribution', component: ContributionComponent, },
       { path: '', component: HomeComponent, },
+      { path: 'about-us', component: AboutUsComponent, }
     ]
   }, {
     path: 'auth',
@@ -35,7 +38,9 @@ const routes: Routes = [
         component: RegisterComponent,
       },
     ],
-  }
+  },
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({

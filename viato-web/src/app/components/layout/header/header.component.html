@@ -1,27 +1,16 @@
-<div class="navigation-container">
-  <div class="header-container">
-    <div class="logo-container">
-      <a
-       href="#" class="sidebar-toggle">
-        <nb-icon icon="menu-2-outline"></nb-icon>
-      </a>
-      <a class="logo" href="#"><span>Viato</span></a>
-    </div>
+<div class="section left">
+  <div class="logo">
+    <a (click)="onHomeClicked()"  routerLink="/">Viato</a>
   </div>
-
-  <div class="header-container">
-    <nb-actions size="small">
-
-      <nb-action class="control-item">
-        <nb-search type="rotate-layout"></nb-search>
-      </nb-action>
-      <nb-action class="control-item" icon="email-outline"></nb-action>
-      <nb-action class="control-item" icon="bell-outline"></nb-action>
-      <nb-action class="user-action">
-        <nb-user name="Babken" [nbContextMenu]="userMenu">
-        </nb-user>
-      </nb-action>
-    </nb-actions>
-  </div>
-
+</div>
+<div class="section middle">
+  <nb-menu tag="navMenu" [items]="navMenuItems"></nb-menu>
+</div>
+<div class="section right">
+  <nb-actions size="small">
+    <nb-action class="user-action">
+      <nb-user name="Babken" [nbContextMenu]="userMenuItems" nbContextMenuTag="userMenu">
+      </nb-user>
+    </nb-action>
+  </nb-actions>
 </div>

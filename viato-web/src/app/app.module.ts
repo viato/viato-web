@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.com
 import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { NbSecurityModule } from '@nebular/security';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
@@ -54,6 +56,7 @@ export const NB_CORE_PROVIDERS = [
           scope: 'api',
           class: NbAuthOAuth2Token,
           grantType: NbOAuth2GrantType.PASSWORD,
+          requireValidToken: true,
         },
       }),
       NbPasswordAuthStrategy.setup({
@@ -101,7 +104,9 @@ export const NB_CORE_PROVIDERS = [
     ContributionComponent,
     AuthWrapperComponent,
     LayoutComponent,
-    HeaderComponent
+    HeaderComponent,
+    AboutUsComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
