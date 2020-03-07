@@ -16,5 +16,5 @@ cache:
 
 build_script:
   - cd viato-web
-  - npm insall
+  - npm i
   - ng build --prod
