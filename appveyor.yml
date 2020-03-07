@@ -15,7 +15,7 @@ build_script:
   - cd viato-web
   - npm i
   - ng build --prod
-  - 7z a web.zip dist/viato-web/*
+  - 7z a web.zip ./dist/viato-web/*
   
 artifacts:
   - path: viato-web/web.zip
