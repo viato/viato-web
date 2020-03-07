@@ -8,10 +8,10 @@ init:
 install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
-  # install modules
-  - npm install
   - npm install -g @angular/cli
+  # install modules
 
 build_script:
   - cd viato-web
+  - npm install
   - ng build --prod
