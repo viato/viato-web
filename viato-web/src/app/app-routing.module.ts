@@ -35,7 +35,9 @@ const routes: Routes = [
         component: RegisterComponent,
       },
     ],
-  }
+  },
+  {path:'**', component: RegisterComponent }
+  
 ];
 
 @NgModule({
