@@ -14,7 +14,7 @@ cache:
 build_script:
   - cd viato-web
   - npm i
-  - npm run build:ssr
+  - npm run prerender
   - 7z a web.zip ./dist/viato-web/*
   
 artifacts:
