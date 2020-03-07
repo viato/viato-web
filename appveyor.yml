@@ -8,6 +8,7 @@ init:
 install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
+  - npm install -g @angular/cli
 
 cache:
 - viato-web\node_modules
@@ -16,3 +17,9 @@ build_script:
   - cd viato-web
   - npm i
   - ng build --prod
+  - 7z a web.zip dist/viato-web/*
+  
+artifacts:
+  - path: web.zip
+    name: ViatoWeb
+    type: zip
