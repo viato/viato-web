@@ -18,6 +18,6 @@ build_script:
   - 7z a web.zip dist/viato-web/*
   
 artifacts:
-  - path: web.zip
+  - path: viato-web/web.zip
     name: ViatoWeb
     type: zip
