@@ -11,6 +11,9 @@ install:
   - npm install -g @angular/cli
   # install modules
 
+cache:
+- viato-web\node_modules
+
 build_script:
   - cd viato-web
   - npm insall
