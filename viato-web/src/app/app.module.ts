@@ -115,7 +115,7 @@ export const NB_CORE_PROVIDERS = [
     NotFoundComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     NbThemeModule.forRoot(),

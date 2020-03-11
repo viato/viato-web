@@ -1,0 +1,32 @@
+environment:
+  nodejs_version: "12"
+
+init:
+  - git config --global core.autocrlf true
+  
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install -g @angular/cli
+
+cache:
+- viato-web\node_modules
+
+build_script:
+  - cd viato-web
+  - npm i
+  - npm run build:ssr
+  - 7z a web.zip ./dist/viato-web/*
+  
+artifacts:
+  - path: viato-web/web.zip
+    name: ViatoWeb
+    type: zip
+    
+deploy:
+- provider: AzureAppServiceZipDeploy
+  website: viato-web-beta
+  username: $viato-web-beta
+  password:
+    secure: 1JJXfq9JuiVgQpue6JXDNVEelktxiPiRRq1RSiHy+mYMOvwBUCPZWXkMT23wT4cW29Pxw5p8BFCUm4DXj9kztg==
+  on:
+    branch: master
