@@ -77,6 +77,12 @@ export const NB_CORE_PROVIDERS = [
       login: {
         strategy: 'oauth2'
       },
+      register: {
+        strategy: 'email'
+      },
+      logout: {
+        strategy: 'oauth2'
+      },
       validation: {
         password: {
           required: true,
