@@ -19,7 +19,7 @@
     </nb-action>
   </nb-actions>
   <div *ngIf="!(authService.onAuthenticationChange() | async)">
-    <button class="auth-button" nbButton status="basic" routerLink="/auth">Log in</button>
+    <button nbButton status="basic" routerLink="/auth">Log in</button>
     <button class="auth-button" nbButton status="primary" routerLink="/auth/register">Sign up</button>
   </div>
 </div>
