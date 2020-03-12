@@ -1,7 +1,7 @@
 <div class="header-container">
   <div class="logo-container">
     <a (click)="toggleSidebar()" class="sidebar-toggle">
-      <nb-icon icon="menu-2-outline"></nb-icon>
+      <nb-icon icon="menu-outline"></nb-icon>
     </a>
     <a class="logo" (click)="onHomeClicked()" routerLink="/">Viato</a>
   </div>
@@ -19,7 +19,7 @@
     </nb-action>
   </nb-actions>
   <div *ngIf="!(authService.onAuthenticationChange() | async)">
-    <button nbButton status="basic" routerLink="/auth">Log in</button>
-    <button class="auth-button" nbButton status="primary" routerLink="/auth/register">Sign up</button>
+    <button size="small" nbButton status="basic" routerLink="/auth">Log in</button>
+    <button size="small" class="auth-button" nbButton status="primary" routerLink="/auth/register">Sign up</button>
   </div>
 </div>
