@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Inject, DoCheck } from '@angular/core';
 import { NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
 import { filter, map, takeUntil, } from 'rxjs/operators';
 import { NbAuthService, NbAuthResult, getDeepFromObject, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class HeaderComponent implements OnDestroy, OnInit {
+export class HeaderComponent implements OnDestroy, OnInit, DoCheck {
 
   private redirectDelay = 0;
   private strategy = '';
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnDestroy, OnInit {
     private menuService: NbMenuService,
     public authService: NbAuthService,
     private sidebarService: NbSidebarService,
+    private location: Location,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     protected router: Router) {
     this.redirectDelay = this.getConfigValue('forms.logout.redirectDelay');
@@ -96,5 +98,16 @@ export class HeaderComponent implements OnDestroy, OnInit {
 
   getConfigValue(key: string): any {
     return getDeepFromObject(this.options, key, null);
+  }
+
+  ngDoCheck(): void {
+    // Fix for https://github.com/akveo/nebular/issues/1242
+    if (this.location.path() === '' && !this.navMenuItems[0].selected) {
+      // Select home menu item when navigating to the site root
+      this.navMenuItems[0].selected = true;
+      for (let index = 1; index < this.navMenuItems.length; index++) {
+        this.navMenuItems[index].selected = false;
+      }
+    }
   }
 }
