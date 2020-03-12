@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { NbMenuItem, NbMenuService } from '@nebular/theme';
+import { NbMenuItem, NbMenuService, NbSidebarService } from '@nebular/theme';
 import { filter, map, takeUntil, } from 'rxjs/operators';
 import { NbAuthService, NbAuthResult, getDeepFromObject, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { Subject } from 'rxjs';
@@ -19,7 +19,8 @@ export class HeaderComponent implements OnDestroy, OnInit {
   private unsubscribe: Subject<void> = new Subject();
   constructor(
     private menuService: NbMenuService,
-    private authService: NbAuthService,
+    public authService: NbAuthService,
+    private sidebarService: NbSidebarService,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     protected router: Router) {
     this.redirectDelay = this.getConfigValue('forms.logout.redirectDelay');
@@ -53,6 +54,9 @@ export class HeaderComponent implements OnDestroy, OnInit {
     this.unsubscribe.complete();
   }
 
+  toggleSidebar(): void {
+    this.sidebarService.toggle(false, 'menu-sidebar');
+  }
 
   onHomeClicked() {
     this.menuService.getSelectedItem('navMenu')

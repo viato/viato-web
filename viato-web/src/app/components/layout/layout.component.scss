@@ -1,0 +1,27 @@
+@import "../../../themes";
+
+@include nb-install-component() {
+
+  ::ng-deep nb-sidebar nb-menu {
+    .menu-group {
+      padding-left: 0;
+    }
+
+    nb-icon {
+      display: none;
+    }
+
+    .menu-item {
+      .menu-title {
+        flex: 1 1 auto;
+        padding-left: 3rem;
+      }
+    }
+
+    .menu-items .menu-item .menu-item a {
+      &:hover, &.active, &:focus {
+        outline: none!important;
+      }
+    }
+  }
+}

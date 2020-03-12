@@ -1,16 +1,25 @@
-<div class="section left">
-  <div class="logo">
-    <a (click)="onHomeClicked()"  routerLink="/">Viato</a>
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" (click)="onHomeClicked()" routerLink="/">Viato</a>
   </div>
 </div>
-<div class="section middle">
-  <nb-menu tag="navMenu" [items]="navMenuItems"></nb-menu>
-</div>
-<div class="section right">
-  <nb-actions size="small">
+<div class="header-container">
+  <nb-menu class="nav-menu" tag="navMenu" [items]="navMenuItems"></nb-menu>
+  <nb-actions size="small" *ngIf="authService.onAuthenticationChange() | async">
     <nb-action class="user-action">
-      <nb-user name="Babken" [nbContextMenu]="userMenuItems" nbContextMenuTag="userMenu">
+      <nb-user
+        name="Babken"
+        [nbContextMenu]="userMenuItems"
+        nbContextMenuTag="userMenu"
+      >
       </nb-user>
     </nb-action>
   </nb-actions>
+  <div *ngIf="!(authService.onAuthenticationChange() | async)">
+    <button class="auth-button" nbButton status="basic" routerLink="/auth">Log in</button>
+    <button class="auth-button" nbButton status="primary" routerLink="/auth/register">Sign up</button>
+  </div>
 </div>

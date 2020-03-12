@@ -21,6 +21,7 @@ import {
   NbContextMenuModule,
   NbSearchModule,
   NbMenuModule,
+  NbSidebarModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LoginComponent } from './components/login/login.component';
@@ -138,6 +139,7 @@ export const NB_CORE_PROVIDERS = [
     NbMenuModule.forRoot(),
     NbSearchModule,
     NbSecurityModule.forRoot(),
+    NbSidebarModule.forRoot(),
   ],
   providers: [
     ...NB_CORE_PROVIDERS,
