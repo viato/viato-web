@@ -1,0 +1,32 @@
+<h2 id="title" class="title">Sign in to Viato</h2>
+<div class="socials-container">
+  <p>
+    <button (click)="login()" nbButton outline status="primary" fullWidth>
+      <nb-icon icon="google"></nb-icon>
+      Sign in with Google
+    </button>
+  </p>
+  <p>
+    <button nbButton outline status="primary" fullWidth>
+      <nb-icon icon="twitter"></nb-icon>
+      Sign in with Twitter
+    </button>
+  </p>
+  <p>
+    <button nbButton outline status="primary" fullWidth>
+      <nb-icon icon="facebook"></nb-icon>
+      Sign in with Facebook
+    </button>
+  </p>
+  <div class="separator">Prefer to use email?</div>
+  <p>
+    <button nbButton outline status="basic" fullWidth routerLink="./register">
+      Create an account
+    </button>
+  </p>
+  <p>
+    <button nbButton outline status="basic" fullWidth routerLink="./login">
+      Log in
+    </button>
+  </p>
+</div>

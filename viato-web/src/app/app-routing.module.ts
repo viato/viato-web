@@ -1,15 +1,17 @@
+import { OauthCallbackComponent } from './components/auth/oauth-callback/oauth-callback.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
+import { AuthWrapperComponent } from './components/auth/auth-wrapper/auth-wrapper.component';
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './components/register/register.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { NbAuthComponent } from '@nebular/auth';
 import { ContributionComponent } from './components/contribution/contribution.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { SignInComponent } from './components/auth/sign-in/sign-in.component';
 
 
 const routes: Routes = [
@@ -27,7 +29,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: LoginComponent,
+        component: SignInComponent,
+      },
+      {
+        path: 'callback',
+        component: OauthCallbackComponent,
       },
       {
         path: 'login',
@@ -39,14 +45,14 @@ const routes: Routes = [
       },
     ],
   },
-  {path: '404', component: NotFoundComponent},
-  {path: '**', redirectTo: '/404'}
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     initialNavigation: 'enabled'
-})],
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

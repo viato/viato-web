@@ -1,0 +1,25 @@
+@import "../../../../themes";
+
+@include nb-install-component() {
+  .socials-container {
+    width: 400;
+  }
+
+  .separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  .separator::before,
+  .separator::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid nb-theme(divider-color);
+  }
+  .separator::before {
+    margin-right: 0.25em;
+  }
+  .separator::after {
+    margin-left: 0.25em;
+  }
+}

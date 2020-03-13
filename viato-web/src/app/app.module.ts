@@ -24,7 +24,6 @@ import {
   NbSidebarModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import {
   NbOAuth2AuthStrategy,
@@ -32,16 +31,21 @@ import {
   NbOAuth2GrantType,
   NbAuthOAuth2Token,
   NbOAuth2ClientAuthMethod,
-  NbPasswordAuthStrategy
+  NbPasswordAuthStrategy,
+  NbOAuth2ResponseType
 } from '@nebular/auth';
 import { HomeComponent } from './components/home/home.component';
-import { RegisterComponent } from './components/register/register.component';
 import { ContributionComponent } from './components/contribution/contribution.component';
-import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
+import { AuthWrapperComponent } from './components/auth/auth-wrapper/auth-wrapper.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { NbSecurityModule } from '@nebular/security';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { SignInComponent } from './components/auth/sign-in/sign-in.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { NbGoogleOAuth2Strategy } from './components/auth/strategies/NbGoogleOAuth2Strategy';
+import { OauthCallbackComponent } from './components/auth/oauth-callback/oauth-callback.component';
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
@@ -59,6 +63,17 @@ export const NB_CORE_PROVIDERS = [
           grantType: NbOAuth2GrantType.PASSWORD,
           requireValidToken: true,
         },
+      }),
+      NbGoogleOAuth2Strategy.setup({
+        name: 'google',
+        clientId: '647756271888-tcmp1aj2ulmqqcrpd4ad13k3fpagmh3o.apps.googleusercontent.com',
+        clientSecret: '1ycdVq8NfGgvpynQWQMcgdSo',
+        authorize: {
+          endpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
+          responseType: NbOAuth2ResponseType.TOKEN,
+          scope: 'email profile',
+          redirectUri: 'http://test.via-to.com:4200/auth/callback',
+        }
       }),
       NbPasswordAuthStrategy.setup({
         name: 'email',
@@ -100,12 +115,14 @@ export const NB_CORE_PROVIDERS = [
       },
     }
   }).providers,
+  NbGoogleOAuth2Strategy,
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    SignInComponent,
     HomeComponent,
     RegisterComponent,
     ContributionComponent,
@@ -114,6 +131,7 @@ export const NB_CORE_PROVIDERS = [
     HeaderComponent,
     AboutUsComponent,
     NotFoundComponent,
+    OauthCallbackComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
