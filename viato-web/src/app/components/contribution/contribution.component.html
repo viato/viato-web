@@ -1,5 +1,5 @@
 <div class="row show-grid">
-  <div *ngFor="let contribution of contributions" class="col-md-3">
+  <div *ngFor="let contribution of getContributions() | async" class="col-md-3">
     <nb-card size="small">
       <div
         class="picture"
