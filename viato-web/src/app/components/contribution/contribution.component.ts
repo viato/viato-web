@@ -1,6 +1,5 @@
 import { Contribution } from './../../models/contribution';
 import { Component, OnInit } from '@angular/core';
-import { NbListComponent } from '@nebular/theme';
 import { ContributionService } from 'src/app/services/contribution-service';
 
 @Component({

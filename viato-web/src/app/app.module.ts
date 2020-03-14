@@ -44,7 +44,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { SignInComponent } from './components/auth/sign-in/sign-in.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { NbGoogleOAuth2Strategy } from './components/auth/strategies/NbGoogleOAuth2Strategy';
+import { GoogleMixedOAuth2Strategy } from './components/auth/strategies/GoogleMixedOAuth2Strategy';
 import { OauthCallbackComponent } from './components/auth/oauth-callback/oauth-callback.component';
 
 export const NB_CORE_PROVIDERS = [
@@ -64,7 +64,7 @@ export const NB_CORE_PROVIDERS = [
           requireValidToken: true,
         },
       }),
-      NbGoogleOAuth2Strategy.setup({
+      GoogleMixedOAuth2Strategy.setup({
         name: 'google',
         clientId: '647756271888-tcmp1aj2ulmqqcrpd4ad13k3fpagmh3o.apps.googleusercontent.com',
         clientSecret: '1ycdVq8NfGgvpynQWQMcgdSo',
@@ -73,6 +73,17 @@ export const NB_CORE_PROVIDERS = [
           responseType: NbOAuth2ResponseType.TOKEN,
           scope: 'email profile',
           redirectUri: 'http://test.via-to.com:4200/auth/callback',
+        },
+        token: {
+          class: NbAuthOAuth2Token,
+          endpoint: 'https://localhost:5000/connect/token',
+          scope: 'api',
+          grantType: 'external',
+        },
+        internal: {
+          clientId: 'viato-web-ui',
+          clientSecret: 'viato-web-ui',
+          provider: 'google',
         }
       }),
       NbPasswordAuthStrategy.setup({
@@ -115,7 +126,7 @@ export const NB_CORE_PROVIDERS = [
       },
     }
   }).providers,
-  NbGoogleOAuth2Strategy,
+  GoogleMixedOAuth2Strategy,
 ];
 
 @NgModule({
