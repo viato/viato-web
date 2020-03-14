@@ -30,6 +30,7 @@ import {
   NbAuthModule,
   NbOAuth2GrantType,
   NbAuthOAuth2Token,
+  NbAuthOAuth2JWTToken,
   NbOAuth2ClientAuthMethod,
   NbPasswordAuthStrategy,
   NbOAuth2ResponseType
@@ -59,7 +60,7 @@ export const NB_CORE_PROVIDERS = [
         token: {
           endpoint: '/connect/token',
           scope: 'api',
-          class: NbAuthOAuth2Token,
+          class: NbAuthOAuth2JWTToken,
           grantType: NbOAuth2GrantType.PASSWORD,
           requireValidToken: true,
         },
@@ -67,7 +68,6 @@ export const NB_CORE_PROVIDERS = [
       GoogleMixedOAuth2Strategy.setup({
         name: 'google',
         clientId: '647756271888-tcmp1aj2ulmqqcrpd4ad13k3fpagmh3o.apps.googleusercontent.com',
-        clientSecret: '1ycdVq8NfGgvpynQWQMcgdSo',
         authorize: {
           endpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
           responseType: NbOAuth2ResponseType.TOKEN,
@@ -84,6 +84,7 @@ export const NB_CORE_PROVIDERS = [
           clientId: 'viato-web-ui',
           clientSecret: 'viato-web-ui',
           provider: 'google',
+          tokenClass: NbAuthOAuth2JWTToken,
         }
       }),
       NbPasswordAuthStrategy.setup({

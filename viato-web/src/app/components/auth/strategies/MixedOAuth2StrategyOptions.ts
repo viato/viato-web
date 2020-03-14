@@ -40,6 +40,7 @@ export declare class MixedOAuth2StrategyOptions extends NbOAuth2AuthStrategyOpti
     clientId: string;
     clientSecret?: string;
     provider: string;
+    tokenClass: NbAuthTokenClass;
   };
 }
 

@@ -11,7 +11,7 @@
   <nb-actions size="small" *ngIf="authService.onAuthenticationChange() | async">
     <nb-action class="user-action">
       <nb-user
-        name="Babken"
+        [name]="user.email"
         [nbContextMenu]="userMenuItems"
         nbContextMenuTag="userMenu"
       >

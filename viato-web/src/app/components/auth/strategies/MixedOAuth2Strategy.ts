@@ -1,4 +1,12 @@
-import { NbOAuth2AuthStrategy, NbAuthResult, NbOAuth2GrantType, NbAuthOAuth2Token } from '@nebular/auth';
+import {
+  NbOAuth2AuthStrategy,
+  NbAuthResult,
+  NbOAuth2GrantType,
+  NbAuthOAuth2Token,
+  nbAuthCreateToken,
+  NbAuthToken,
+  NbAuthIllegalTokenError
+} from '@nebular/auth';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable, of as observableOf, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -38,7 +46,6 @@ export abstract class MixedOAuth2Strategy extends NbOAuth2AuthStrategy {
 
     let headers = this.buildAuthHeader() || new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-
     return this.http.post(url, this.buildTokenRequestData(token.getValue()), { headers })
       .pipe(
         map((res) => {
@@ -48,10 +55,18 @@ export abstract class MixedOAuth2Strategy extends NbOAuth2AuthStrategy {
             this.getOption('redirect.success'),
             [],
             this.getOption('defaultMessages'),
-            this.createToken(res, requireValidToken));
+            this.createInternalToken(res, requireValidToken));
         }),
         catchError((res) => this.handleResponseError(res)),
       );
+  }
+
+  createInternalToken<T extends NbAuthToken>(value: any, failWhenInvalidToken?: boolean): T {
+    const token = nbAuthCreateToken<T>(this.getOption('internal.tokenClass'), value, this.getName());
+    if (failWhenInvalidToken && !token.isValid()) {
+      throw new NbAuthIllegalTokenError('Token is empty or invalid.');
+    }
+    return token;
   }
 
   protected buildTokenRequestData(externalToken: string): string {
