@@ -16,6 +16,7 @@ import { UserService } from 'src/app/services/user-service';
 
 export class HeaderComponent implements OnDestroy, OnInit, DoCheck {
   user: any;
+  isAuthenticating: boolean;
   private redirectDelay = 0;
   private strategy = '';
   private unsubscribe: Subject<void> = new Subject();
@@ -74,6 +75,10 @@ export class HeaderComponent implements OnDestroy, OnInit, DoCheck {
     this.userService.onUserChange()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((user: any) => this.user = user);
+
+    this.userService.onIsAuthenticatingChange()
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((isAuthenticating: boolean) => this.isAuthenticating = isAuthenticating);
 
     this.menuService.onItemClick()
       .pipe(

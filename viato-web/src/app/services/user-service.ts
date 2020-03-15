@@ -8,6 +8,7 @@ import { NbAuthService, NbAuthOAuth2JWTToken, NbAuthOAuth2Token } from '@nebular
 })
 export class UserService {
   protected user$: BehaviorSubject<any> = new BehaviorSubject(null);
+  protected isAuthenticating$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private authService: NbAuthService) {
     this.authService.onTokenChange()
@@ -22,7 +23,15 @@ export class UserService {
     this.user$.next(user);
   }
 
+  public publishIsAuthenticating(isAuthenticating: boolean) {
+    this.isAuthenticating$.next(isAuthenticating);
+  }
+
   onUserChange(): Observable<any> {
     return this.user$;
+  }
+
+  onIsAuthenticatingChange(): Observable<boolean> {
+    return this.isAuthenticating$;
   }
 }

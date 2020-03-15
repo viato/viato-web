@@ -22,6 +22,7 @@ import {
   NbSearchModule,
   NbMenuModule,
   NbSidebarModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
@@ -195,6 +196,7 @@ export const NB_CORE_PROVIDERS = [
     NbSearchModule,
     NbSecurityModule.forRoot(),
     NbSidebarModule.forRoot(),
+    NbSpinnerModule,
   ],
   providers: [
     ...NB_CORE_PROVIDERS,

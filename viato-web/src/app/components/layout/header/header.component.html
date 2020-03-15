@@ -20,6 +20,6 @@
     </nb-action>
   </nb-actions>
   <div *ngIf="!(authService.onAuthenticationChange() | async)">
-    <button size="small" nbButton status="primary" routerLink="/auth">Sign in</button>
+    <button [nbSpinner]="isAuthenticating" [disabled]="isAuthenticating" size="small" nbButton status="primary" routerLink="/auth">Sign in</button>
   </div>
 </div>
