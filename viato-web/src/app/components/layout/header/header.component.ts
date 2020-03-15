@@ -5,6 +5,7 @@ import { NbAuthService, NbAuthResult, getDeepFromObject, NB_AUTH_OPTIONS } from 
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { UserService } from 'src/app/services/user-service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ import { Location } from '@angular/common';
 })
 
 export class HeaderComponent implements OnDestroy, OnInit, DoCheck {
-
+  user: any;
   private redirectDelay = 0;
   private strategy = '';
   private unsubscribe: Subject<void> = new Subject();
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnDestroy, OnInit, DoCheck {
     private menuService: NbMenuService,
     public authService: NbAuthService,
     private sidebarService: NbSidebarService,
+    private userService: UserService,
     private location: Location,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     protected router: Router) {
@@ -69,6 +71,10 @@ export class HeaderComponent implements OnDestroy, OnInit, DoCheck {
   }
 
   ngOnInit() {
+    this.userService.onUserChange()
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((user: any) => this.user = user);
+
     this.menuService.onItemClick()
       .pipe(
         filter(({ tag }) => tag === 'userMenu'),

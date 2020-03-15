@@ -24,24 +24,31 @@ import {
   NbSidebarModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import {
   NbOAuth2AuthStrategy,
   NbAuthModule,
   NbOAuth2GrantType,
   NbAuthOAuth2Token,
+  NbAuthOAuth2JWTToken,
   NbOAuth2ClientAuthMethod,
-  NbPasswordAuthStrategy
+  NbPasswordAuthStrategy,
+  NbOAuth2ResponseType
 } from '@nebular/auth';
 import { HomeComponent } from './components/home/home.component';
-import { RegisterComponent } from './components/register/register.component';
 import { ContributionComponent } from './components/contribution/contribution.component';
-import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
+import { AuthWrapperComponent } from './components/auth/auth-wrapper/auth-wrapper.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { NbSecurityModule } from '@nebular/security';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { SignInComponent } from './components/auth/sign-in/sign-in.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { GoogleMixedOAuth2Strategy } from './components/auth/strategies/GoogleMixedOAuth2Strategy';
+import { OauthCallbackComponent } from './components/auth/oauth-callback/oauth-callback.component';
+import { FbMixedOAuth2Strategy } from './components/auth/strategies/FbMixedOAuth2Strategy';
+import { environment } from 'src/environments/environment';
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
@@ -51,18 +58,62 @@ export const NB_CORE_PROVIDERS = [
         clientId: 'viato-web-ui',
         clientSecret: 'viato-web-ui',
         clientAuthMethod: NbOAuth2ClientAuthMethod.BASIC,
-        baseEndpoint: 'https://localhost:5000',
+        baseEndpoint: environment.apiUrl,
         token: {
           endpoint: '/connect/token',
           scope: 'api',
-          class: NbAuthOAuth2Token,
+          class: NbAuthOAuth2JWTToken,
           grantType: NbOAuth2GrantType.PASSWORD,
           requireValidToken: true,
         },
       }),
+      GoogleMixedOAuth2Strategy.setup({
+        name: 'google',
+        clientId: '647756271888-tcmp1aj2ulmqqcrpd4ad13k3fpagmh3o.apps.googleusercontent.com',
+        authorize: {
+          endpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
+          responseType: NbOAuth2ResponseType.TOKEN,
+          scope: 'email profile',
+          redirectUri: environment.uiUrl + '/auth/callback/' + 'google',
+        },
+        token: {
+          class: NbAuthOAuth2Token,
+          endpoint: environment.apiUrl + '/connect/token',
+          scope: 'api',
+          grantType: 'external',
+        },
+        internal: {
+          clientId: 'viato-web-ui',
+          clientSecret: 'viato-web-ui',
+          provider: 'google',
+          tokenClass: NbAuthOAuth2JWTToken,
+        }
+      }),
+      FbMixedOAuth2Strategy.setup({
+        name: 'facebook',
+        clientId: '213822853333063',
+        authorize: {
+          endpoint: 'https://www.facebook.com/v6.0/dialog/oauth',
+          responseType: NbOAuth2ResponseType.TOKEN,
+          redirectUri: environment.uiUrl + '/auth/callback/' + 'facebook',
+          scope: 'email'
+        },
+        token: {
+          class: NbAuthOAuth2Token,
+          endpoint: environment.apiUrl + '/connect/token',
+          scope: 'api',
+          grantType: 'external',
+        },
+        internal: {
+          clientId: 'viato-web-ui',
+          clientSecret: 'viato-web-ui',
+          provider: 'facebook',
+          tokenClass: NbAuthOAuth2JWTToken,
+        }
+      }),
       NbPasswordAuthStrategy.setup({
         name: 'email',
-        baseEndpoint: 'https://localhost:5000',
+        baseEndpoint: environment.apiUrl,
         register: {
           endpoint: '/auth/register',
         },
@@ -100,12 +151,15 @@ export const NB_CORE_PROVIDERS = [
       },
     }
   }).providers,
+  GoogleMixedOAuth2Strategy,
+  FbMixedOAuth2Strategy,
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    SignInComponent,
     HomeComponent,
     RegisterComponent,
     ContributionComponent,
@@ -114,6 +168,7 @@ export const NB_CORE_PROVIDERS = [
     HeaderComponent,
     AboutUsComponent,
     NotFoundComponent,
+    OauthCallbackComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
