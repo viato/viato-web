@@ -33,7 +33,10 @@ const routes: Routes = [
       },
       {
         path: 'callback',
-        component: OauthCallbackComponent,
+        children: [
+          { path: 'facebook', component: OauthCallbackComponent, },
+          { path: 'google', component: OauthCallbackComponent, }
+        ]
       },
       {
         path: 'login',

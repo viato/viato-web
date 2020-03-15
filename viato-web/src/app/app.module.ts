@@ -47,6 +47,8 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { GoogleMixedOAuth2Strategy } from './components/auth/strategies/GoogleMixedOAuth2Strategy';
 import { OauthCallbackComponent } from './components/auth/oauth-callback/oauth-callback.component';
+import { FbMixedOAuth2Strategy } from './components/auth/strategies/FbMixedOAuth2Strategy';
+import { environment } from 'src/environments/environment';
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
@@ -56,7 +58,7 @@ export const NB_CORE_PROVIDERS = [
         clientId: 'viato-web-ui',
         clientSecret: 'viato-web-ui',
         clientAuthMethod: NbOAuth2ClientAuthMethod.BASIC,
-        baseEndpoint: 'https://localhost:5000',
+        baseEndpoint: environment.apiUrl,
         token: {
           endpoint: '/connect/token',
           scope: 'api',
@@ -72,11 +74,11 @@ export const NB_CORE_PROVIDERS = [
           endpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
           responseType: NbOAuth2ResponseType.TOKEN,
           scope: 'email profile',
-          redirectUri: 'http://test.via-to.com:4200/auth/callback',
+          redirectUri: environment.uiUrl + '/auth/callback/' + 'google',
         },
         token: {
           class: NbAuthOAuth2Token,
-          endpoint: 'https://localhost:5000/connect/token',
+          endpoint: environment.apiUrl + '/connect/token',
           scope: 'api',
           grantType: 'external',
         },
@@ -87,9 +89,31 @@ export const NB_CORE_PROVIDERS = [
           tokenClass: NbAuthOAuth2JWTToken,
         }
       }),
+      FbMixedOAuth2Strategy.setup({
+        name: 'facebook',
+        clientId: '213822853333063',
+        authorize: {
+          endpoint: 'https://www.facebook.com/v6.0/dialog/oauth',
+          responseType: NbOAuth2ResponseType.TOKEN,
+          redirectUri: environment.uiUrl + '/auth/callback/' + 'facebook',
+          scope: 'email'
+        },
+        token: {
+          class: NbAuthOAuth2Token,
+          endpoint: environment.apiUrl + '/connect/token',
+          scope: 'api',
+          grantType: 'external',
+        },
+        internal: {
+          clientId: 'viato-web-ui',
+          clientSecret: 'viato-web-ui',
+          provider: 'facebook',
+          tokenClass: NbAuthOAuth2JWTToken,
+        }
+      }),
       NbPasswordAuthStrategy.setup({
         name: 'email',
-        baseEndpoint: 'https://localhost:5000',
+        baseEndpoint: environment.apiUrl,
         register: {
           endpoint: '/auth/register',
         },
@@ -128,6 +152,7 @@ export const NB_CORE_PROVIDERS = [
     }
   }).providers,
   GoogleMixedOAuth2Strategy,
+  FbMixedOAuth2Strategy,
 ];
 
 @NgModule({

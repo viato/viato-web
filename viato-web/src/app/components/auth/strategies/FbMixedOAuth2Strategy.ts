@@ -4,8 +4,8 @@ import { MixedOAuth2Strategy } from './MixedOAuth2Strategy';
 import { MixedOAuth2StrategyOptions } from './MixedOAuth2StrategyOptions';
 
 @Injectable()
-export class GoogleMixedOAuth2Strategy extends MixedOAuth2Strategy {
+export class FbMixedOAuth2Strategy extends MixedOAuth2Strategy {
   static setup(options: MixedOAuth2StrategyOptions): [NbAuthStrategyClass, MixedOAuth2StrategyOptions] {
-    return [GoogleMixedOAuth2Strategy, options];
+    return [FbMixedOAuth2Strategy, options];
   }
 }

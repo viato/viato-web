@@ -1,7 +1,7 @@
 <h2 id="title" class="title">Sign in to Viato</h2>
 <div class="socials-container">
   <p>
-    <button (click)="login()" nbButton outline status="primary" fullWidth>
+    <button (click)="login('google')" nbButton outline status="primary" fullWidth>
       <nb-icon icon="google"></nb-icon>
       Sign in with Google
     </button>
@@ -13,7 +13,7 @@
     </button>
   </p>
   <p>
-    <button nbButton outline status="primary" fullWidth>
+    <button (click)="login('facebook')" nbButton outline status="primary" fullWidth>
       <nb-icon icon="facebook"></nb-icon>
       Sign in with Facebook
     </button>

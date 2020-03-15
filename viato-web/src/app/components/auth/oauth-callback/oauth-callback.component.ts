@@ -13,7 +13,7 @@ export class OauthCallbackComponent implements OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(private authService: NbAuthService, private router: Router) {
-    this.authService.authenticate('google')
+    this.authService.authenticate(this.resolveStrategy(router.url))
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((authResult: NbAuthResult) => {
         if (authResult.isSuccess()) {
@@ -25,5 +25,16 @@ export class OauthCallbackComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  resolveStrategy(url: string): string {
+    switch (true) {
+      case url.includes('google'):
+        return 'google';
+      case url.includes('facebook'):
+        return 'facebook';
+      default:
+        break;
+    }
   }
 }

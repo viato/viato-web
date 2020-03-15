@@ -20,8 +20,8 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  login() {
-    this.authService.authenticate('google')
+  login(strategy: string) {
+    this.authService.authenticate(strategy)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((authResult: NbAuthResult) => {
       });
