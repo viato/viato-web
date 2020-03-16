@@ -38,6 +38,7 @@ import {
 } from '@nebular/auth';
 import { HomeComponent } from './components/home/home.component';
 import { ContributionComponent } from './components/contribution/contribution.component';
+import { ScanComponent } from './components/scan/scan.component';
 import { AuthWrapperComponent } from './components/auth/auth-wrapper/auth-wrapper.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { HeaderComponent } from './components/layout/header/header.component';
@@ -164,6 +165,7 @@ export const NB_CORE_PROVIDERS = [
     HomeComponent,
     RegisterComponent,
     ContributionComponent,
+    ScanComponent,
     AuthWrapperComponent,
     LayoutComponent,
     HeaderComponent,
