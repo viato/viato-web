@@ -33,12 +33,28 @@ export class ScanService {
   handleError(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
-        // client-side error
-        errorMessage = `Error: ${error.error.message}`;
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
     } else {
-        // server-side error
-        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      // server-side error
+      switch (error.status) {
+        case 400:
+          errorMessage = `Invalid Tor Token was provided, please scan again.`;
+          break;
+        case 441:
+          errorMessage = `Contribution Pipeline you are trying to contribute, no longer exists.`;
+          break;
+        case 442:
+          errorMessage = `Contribution Pipeline you are trying to contribute is not active right now.`;
+          break;
+        case 443:
+          errorMessage = `Organization who is running this pipeline didn't pass verification.`;
+          break;
+        default:
+          errorMessage = `Oops, something unexpected happened, please try again later.`;
+          break;
+      };
     }
     return throwError(errorMessage);
-}
+  }
 }

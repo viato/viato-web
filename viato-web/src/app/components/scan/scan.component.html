@@ -1,9 +1,7 @@
-<nb-card [status]="status" size="tiny" [nbSpinner]="isScanning | async"
-    [nbSpinnerStatus]="status"
-    nbSpinnerSize="large"
-    nbSpinnerMessage="We are processing your contribution, right now!">
-<nb-card-header>Your Contribution</nb-card-header>
-<nb-card-body>
-  <p *ngIf="error">Failed to count your contribution. {{error}}</p>
-</nb-card-body>
+<nb-card [status]="status" size="large" [nbSpinner]="isScanning | async" [nbSpinnerStatus]="status" nbSpinnerSize="large"
+  nbSpinnerMessage="We are processing your contribution, right now!">
+  <nb-card-header>Your Contribution</nb-card-header>
+  <nb-card-body>
+    <nb-alert *ngIf="error" accent="danger">Failed to count your contribution. {{error}}</nb-alert>
+  </nb-card-body>
 </nb-card>

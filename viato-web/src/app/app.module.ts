@@ -23,6 +23,7 @@ import {
   NbMenuModule,
   NbSidebarModule,
   NbSpinnerModule,
+  NbStepperModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
@@ -199,6 +200,7 @@ export const NB_CORE_PROVIDERS = [
     NbSecurityModule.forRoot(),
     NbSidebarModule.forRoot(),
     NbSpinnerModule,
+    NbStepperModule,
   ],
   providers: [
     ...NB_CORE_PROVIDERS,
