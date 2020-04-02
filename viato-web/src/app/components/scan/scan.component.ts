@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ScanService } from 'src/app/services/scan-service';
+import { TorTokenService, TorToken } from '../../services/tor-token-service';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntil, delay, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -17,14 +18,24 @@ export class ScanComponent implements OnInit, OnDestroy {
   isScanning = new BehaviorSubject<boolean>(false);
   contribution: any;
   error: string;
+  tokenId?: string;
 
   constructor(
     private scanService: ScanService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private torTokenService: TorTokenService) { }
 
   ngOnInit(): void {
     this.status = 'warning';
     this.isScanning.next(true);
+    this.route.params.subscribe(data => {
+      const tor:string = data.tor;
+      const token:TorToken = this.torTokenService.parseToken(tor);
+      if (token) {
+        this.showContributionPiplineBlock(token);
+      }
+    });
+
     this.scanService.scanTor(this.route.snapshot.params.tor)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((scanResult) => {
@@ -47,6 +58,11 @@ export class ScanComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  showContributionPiplineBlock(token: TorToken) {
+    // TODO(aram): create contribtion pipline service which will return contribution pipline to show it to user
+    this.tokenId = token.id;
   }
 
 }
