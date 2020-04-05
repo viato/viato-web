@@ -2,68 +2,9 @@
   nbSpinnerMessage="We are processing your contribution, right now!">
   <nb-card-header>Your Contribution</nb-card-header>
   <nb-card-body>
-    <nb-stepper orientation="vertical">
-      <nb-step label="Scan">
-        {{tokenId}}
-        <h4>Do your contribution by scanning QR code</h4>
-        <p class="lorem">
-          Proin varius accumsan semper. Praesent consequat tincidunt sagittis. Curabitur egestas sem a ipsum bibendum,
-          sit amet fringilla orci efficitur. Nam bibendum lectus ut viverra tristique. Fusce eu pulvinar magna, quis
-          viverra ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent metus turpis, commodo vel
-          placerat quis, lobortis in ligula.
-        </p>
-        <p class="lorem">
-          Curabitur luctus mattis risus nec condimentum. Donec at dui turpis. Sed vehicula fringilla rutrum. Nullam
-          sed ornare magna. Mauris vitae laoreet diam. Mauris fermentum ligula at lacinia semper. Nulla placerat dui
-          eu sapien pellentesque, eu placerat leo luctus. Cras pharetra blandit fermentum.
-        </p>
-        <nb-alert *ngIf="error" accent="danger">Failed to count your contribution. {{error}}</nb-alert>
-      </nb-step>
-      <nb-step label="Verify">
-        <h4>Verify your contribution in distribured ledger</h4>
-        <p class="lorem">
-          Proin varius accumsan semper. Praesent consequat tincidunt sagittis. Curabitur egestas sem a ipsum bibendum,
-          sit amet fringilla orci efficitur. Nam bibendum lectus ut viverra tristique. Fusce eu pulvinar magna, quis
-          viverra ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent metus turpis, commodo vel
-          placerat quis, lobortis in ligula.
-        </p>
-        <p class="lorem">
-          Curabitur luctus mattis risus nec condimentum. Donec at dui turpis. Sed vehicula fringilla rutrum. Nullam
-          sed ornare magna. Mauris vitae laoreet diam. Mauris fermentum ligula at lacinia semper. Nulla placerat dui
-          eu sapien pellentesque, eu placerat leo luctus. Cras pharetra blandit fermentum.
-        </p>
-        <button size="large" nbButton status="primary" routerLink="/contribution">Contribution</button>
-      </nb-step>
-      <nb-step label="Sign In">
-        <h4>Sign In to keep track of all your contributions</h4>
-        <p class="lorem">
-          Proin varius accumsan semper. Praesent consequat tincidunt sagittis. Curabitur egestas sem a ipsum bibendum,
-          sit amet fringilla orci efficitur. Nam bibendum lectus ut viverra tristique. Fusce eu pulvinar magna, quis
-          viverra ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent metus turpis, commodo vel
-          placerat quis, lobortis in ligula.
-        </p>
-        <p class="lorem">
-          Curabitur luctus mattis risus nec condimentum. Donec at dui turpis. Sed vehicula fringilla rutrum. Nullam
-          sed ornare magna. Mauris vitae laoreet diam. Mauris fermentum ligula at lacinia semper. Nulla placerat dui
-          eu sapien pellentesque, eu placerat leo luctus. Cras pharetra blandit fermentum.
-        </p>
-        <button size="large" nbButton status="primary" routerLink="/auth">Sign in</button>
-      </nb-step>
-      <nb-step label="Explore">
-        <h4>Explore people like you</h4>
-        <p class="lorem">
-          Proin varius accumsan semper. Praesent consequat tincidunt sagittis. Curabitur egestas sem a ipsum bibendum,
-          sit amet fringilla orci efficitur. Nam bibendum lectus ut viverra tristique. Fusce eu pulvinar magna, quis
-          viverra ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent metus turpis, commodo vel
-          placerat quis, lobortis in ligula.
-        </p>
-        <p class="lorem">
-          Curabitur luctus mattis risus nec condimentum. Donec at dui turpis. Sed vehicula fringilla rutrum. Nullam
-          sed ornare magna. Mauris vitae laoreet diam. Mauris fermentum ligula at lacinia semper. Nulla placerat dui
-          eu sapien pellentesque, eu placerat leo luctus. Cras pharetra blandit fermentum.
-        </p>
-        <button size="large" nbButton status="primary" routerLink="/pipelines">Explore</button>
-      </nb-step>
-    </nb-stepper>
+    <nb-alert *ngIf="error" accent="danger">Failed to count your contribution. {{error}}</nb-alert>
+
+    <nb-alert *ngIf="getToken(token)" accent="success">You are about to contribute to {{getToken(token).id}}.</nb-alert>
+
   </nb-card-body>
 </nb-card>

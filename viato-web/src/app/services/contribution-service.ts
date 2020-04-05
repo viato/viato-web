@@ -1,4 +1,4 @@
-import { Contribution } from './../models/contribution';
+import { Contribution } from './../interfaces/contribution';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';

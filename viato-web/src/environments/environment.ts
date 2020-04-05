@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:5000',
+  apiUrl: 'https://beta-api.via-to.com',
   uiUrl: 'https://localhost:4200',
 };
 

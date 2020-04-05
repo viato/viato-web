@@ -1,4 +1,4 @@
-export class ContributionPipeline {
+export interface ContributionPipeline {
   id: number;
   sourceOrgId: number;
   destinationOrgId: number;

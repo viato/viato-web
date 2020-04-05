@@ -1,4 +1,4 @@
-export class Contribution {
+export interface Contribution {
   id: number;
   contributionDate: Date;
   contributionPipelineId: number;

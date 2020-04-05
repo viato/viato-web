@@ -1,4 +1,4 @@
-import { Contribution } from './../../models/contribution';
+import { Contribution } from './../../interfaces/contribution';
 import { Component, OnInit } from '@angular/core';
 import { ContributionService } from 'src/app/services/contribution-service';
 import { Observable } from 'rxjs';
