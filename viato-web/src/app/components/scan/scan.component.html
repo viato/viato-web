@@ -1,10 +1,21 @@
-<nb-card [status]="status$ | async" size="large" [nbSpinner]="isLoading$ | async" nbSpinnerSize="large"
+<nb-card [status]="status$ | async"  [nbSpinner]="isLoading$ | async"
   [nbSpinnerMessage]="spinnerMessage$ | async">
   <nb-card-header>Your Contribution</nb-card-header>
   <nb-card-body>
-    <nb-alert *ngIf="error$ | async as error" accent="danger">Failed to count your contribution. {{error}}</nb-alert>
+    <nb-alert *ngIf="error$ | async as error" accent="danger">Failed to count your contribution. {{error}}.</nb-alert>
 
-    <nb-alert *ngIf="token$ | async as token" accent="success">You are about to contribute to {{token.id}}.</nb-alert>
-
+    <div *ngIf="token$ | async as token">
+      <div *ngIf="pipeline$ | async as pipeline">
+        <div class="contribution-message">
+          <div>You are about to contribute {{token.amount}} <strong>{{pipeline.contributionCurrency}}</strong> to {{pipeline.displayName}}.</div>
+          <div>Neo, you have 2 options, you can <span class="contribution-message-red">contribute anonymously</span>, or you can <span class="contribution-message-green">sign in</span> to keep tack of your contributions and future updates.</div>
+        </div>
+        <div class="contribution-actions">
+          <button *ngIf="!isAuthenticated" nbButton outline status="success">Sign In</button>
+          <button *ngIf="isAuthenticated" nbButton outline status="success">Continue as {{username}}</button>
+          <button nbButton outline status="danger">Anonymous</button>
+        </div>
+      </div>
+    </div>
   </nb-card-body>
 </nb-card>

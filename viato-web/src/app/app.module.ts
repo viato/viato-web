@@ -118,13 +118,13 @@ export const NB_CORE_PROVIDERS = [
         name: 'email',
         baseEndpoint: environment.apiUrl,
         register: {
-          endpoint: '/auth/register',
+          endpoint: '/user/register',
         },
         resetPass: {
-          endpoint: '/auth/reset-password',
+          endpoint: '/user/reset-password',
         },
         requestPass: {
-          endpoint: '/auth/forgot-password',
+          endpoint: '/user/forgot-password',
         },
       }),
     ],

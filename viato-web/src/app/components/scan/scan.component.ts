@@ -7,6 +7,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { ContributionPipelineService } from 'src/app/services/contribution-pipeline-service';
 import { ContributionPipeline } from 'src/app/interfaces/contribution-pipeline';
 import { Contribution } from 'src/app/interfaces/contribution';
+import { NbAuthService } from '@nebular/auth';
 
 @Component({
   templateUrl: './scan.component.html',
@@ -17,6 +18,8 @@ export class ScanComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Subject<void> = new Subject();
 
+  isAuthenticated: boolean;
+  username: string;
   status$ = new BehaviorSubject<string>('warning');
   isLoading$ = new BehaviorSubject<boolean>(false);
   spinnerMessage$ = new BehaviorSubject<string>('');
@@ -27,6 +30,7 @@ export class ScanComponent implements OnInit, OnDestroy {
 
   constructor(
     private pipelineService: ContributionPipelineService,
+    public authService: NbAuthService,
     private route: ActivatedRoute,
     private torTokenService: TorTokenService) { }
 
@@ -39,6 +43,14 @@ export class ScanComponent implements OnInit, OnDestroy {
       } else {
         this.showError('Failed to parse your contribution token.');
       }
+    });
+
+    this.authService.isAuthenticated().subscribe(value => {
+      this.isAuthenticated = value;
+    });
+
+    this.authService.getToken().subscribe(token => {
+      this.username = token.getName();
     });
 
     // this.isScanning.next(true);
@@ -70,18 +82,27 @@ export class ScanComponent implements OnInit, OnDestroy {
   showError(message: string) {
     this.error$.next(message);
     this.status$.next('danger');
+    this.hideLoading();
+  }
+
+  showLoading(message: string) {
+    this.spinnerMessage$.next(message);
+    this.isLoading$.next(true);
+  }
+
+  hideLoading() {
+    this.spinnerMessage$.next(undefined);
     this.isLoading$.next(false);
   }
 
   showContributionPiplineBlock(token: TorToken) {
-    this.spinnerMessage$.next("Loading contribution pipeline!");
-    this.isLoading$.next(true);
+    this.showLoading('Loading contribution pipeline!');
     this.pipelineService.getContributionPipelineById(token.pipelineId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(value => {
         this.token$.next(token);
         this.pipeline$.next(value);
-        this.isLoading$.next(false);
+        this.hideLoading();
       }, () => {
         this.showError('Failed to process your contribution.');
       });
