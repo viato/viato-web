@@ -1,10 +1,10 @@
-<nb-card [status]="status" size="large" [nbSpinner]="isScanning | async" [nbSpinnerStatus]="status" nbSpinnerSize="large"
-  nbSpinnerMessage="We are processing your contribution, right now!">
+<nb-card [status]="status$ | async" size="large" [nbSpinner]="isLoading$ | async" nbSpinnerSize="large"
+  [nbSpinnerMessage]="spinnerMessage$ | async">
   <nb-card-header>Your Contribution</nb-card-header>
   <nb-card-body>
-    <nb-alert *ngIf="error" accent="danger">Failed to count your contribution. {{error}}</nb-alert>
+    <nb-alert *ngIf="error$ | async as error" accent="danger">Failed to count your contribution. {{error}}</nb-alert>
 
-    <nb-alert *ngIf="getToken(token)" accent="success">You are about to contribute to {{getToken(token).id}}.</nb-alert>
+    <nb-alert *ngIf="token$ | async as token" accent="success">You are about to contribute to {{token.id}}.</nb-alert>
 
   </nb-card-body>
 </nb-card>

@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { ContributionPipelineService } from 'src/app/services/contribution-pipeline-service';
 import { ContributionPipeline } from 'src/app/interfaces/contribution-pipeline';
+import { Contribution } from 'src/app/interfaces/contribution';
 
 @Component({
   templateUrl: './scan.component.html',
@@ -16,12 +17,13 @@ export class ScanComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Subject<void> = new Subject();
 
-  status: string;
-  isScanning = new BehaviorSubject<boolean>(false);
-  contribution: any;
-  pipeline?: ContributionPipeline;
-  error?: string;
-  token?: TorToken;
+  status$ = new BehaviorSubject<string>('warning');
+  isLoading$ = new BehaviorSubject<boolean>(false);
+  spinnerMessage$ = new BehaviorSubject<string>('');
+  contribution$ = new BehaviorSubject<Contribution>(undefined);
+  pipeline$ = new BehaviorSubject<ContributionPipeline>(undefined);
+  error$ = new BehaviorSubject<string>(undefined);
+  token$ = new BehaviorSubject<TorToken>(undefined);
 
   constructor(
     private pipelineService: ContributionPipelineService,
@@ -29,8 +31,6 @@ export class ScanComponent implements OnInit, OnDestroy {
     private torTokenService: TorTokenService) { }
 
   ngOnInit(): void {
-    this.status = 'warning';
-
     this.route.params.subscribe(data => {
       const tor: string = data.tor;
       const token: TorToken = this.torTokenService.parseToken(tor);
@@ -59,10 +59,7 @@ export class ScanComponent implements OnInit, OnDestroy {
     //       this.status = 'success';
     //       this.isScanning.next(false);
     //     });
-  }
-
-  getToken(token: TorToken) {
-    return this.token;
+    // We are processing your contribution, right now!
   }
 
   ngOnDestroy(): void {
@@ -71,20 +68,23 @@ export class ScanComponent implements OnInit, OnDestroy {
   }
 
   showError(message: string) {
-    this.error = message;
+    this.error$.next(message);
+    this.status$.next('danger');
+    this.isLoading$.next(false);
   }
 
   showContributionPiplineBlock(token: TorToken) {
+    this.spinnerMessage$.next("Loading contribution pipeline!");
+    this.isLoading$.next(true);
     this.pipelineService.getContributionPipelineById(token.pipelineId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(value => {
-        this.token = token;
-        this.pipeline = value;
+        this.token$.next(token);
+        this.pipeline$.next(value);
+        this.isLoading$.next(false);
       }, () => {
-        this.error = 'Failed to process your contribution.';
+        this.showError('Failed to process your contribution.');
       });
-
-
   }
 
 }
